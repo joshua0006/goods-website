@@ -152,11 +152,11 @@ footer p:nth-child(2){
 margin-left: auto;
 }
 .footer-right{
-  margin-left: auto;
+  margin-left: 10px;
 }
 footer a:hover{
   transform: scale(1.05);
 }
 .shopee{
-  margin-left: 10px;
+  margin: 0 10px;
 }
