@@ -55,7 +55,7 @@ nav p:hover{
 }
 main{
   display: grid;
-  grid-template-columns: repeat(2, 200px);
+  grid-template-columns: repeat(2, 190px);
   align-items: center;
   justify-content: center;
   margin-top: 20px;
