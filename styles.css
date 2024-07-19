@@ -13,6 +13,7 @@
 }
 body{
   height: 100vh;
+  min-height: 100vh;
 }
 .title-container{
   display: flex;
@@ -46,9 +47,10 @@ nav{
   }
 nav p{
   cursor: pointer;
-  width: 100%;
+  width: 50%;
   height: 60px;
   display: flex; 
+  text-align: center;
   align-items: center; 
   justify-content: center; 
 }
@@ -64,19 +66,21 @@ main{
   justify-content: center;
   margin-top: 20px;
   grid-gap: 15px;
+  min-height: 100vh;
 }
 .product-container{
-  width: 180px;
+  width: 190px;
   text-align: center;
   box-shadow: 0 0 10px rgba(3, 53, 53, 0.3);
-  height: 300px;
+  height: 260px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
+  background-color: rgba(238, 238, 238, 0.7);
 }
 .product-container img{
-  width: 180px;
-  height: 250px;
+  width: 190px;
+  height: 190px;
   transition: all 0.5s;
 }
 .product-container:hover img{
@@ -86,14 +90,10 @@ main{
   position: absolute;
   text-align: center;
   width: 100%;
-  bottom: -18px; 
+  bottom: 0; 
   height: 58px;
   background-color: rgba(238, 238, 238, 0.7);
   transition: all 0.5s ease;
-}
-.product-container:hover .product-details {
-  bottom: 0;
-  background-color: rgb(238, 238, 238); 
 }
 .floating-product{
   display: flex;
@@ -141,13 +141,17 @@ main{
   font-size: 3rem;
 }
 footer{
-  margin-top: 20px;
   padding: 15px 10px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   background-color: var(--darkgray);
   color: var(--white);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  clear: both;
+  position: relative;
 }
 footer h2{
   font-size: 2rem;
@@ -165,26 +169,26 @@ footer a:hover{
 .shopee{
   margin: 0 10px;
 }
-@media only screen and (min-width: 481px) {
+@media only screen and (min-width: 480px) {
   .title-container{
     justify-content: start;
     margin-left: 20px;
   }
   h1{
-    width: 100%
+    width: 100%;
   }
   main{
-    grid-template-columns: repeat(6, 250px);
-    width: 80%;
-    grid-gap: 40px;
+    grid-template-columns: repeat(auto-fit, 300px);
+    width: 90%;
+    grid-gap: 30px;
     margin: 40px auto;
   }
   .product-container{
-    width: 250px;
-    height: 400px;
+    width: 300px;
+    height: 420px;
   }
   .product-container img{
-    width: 250px;
+    width: inherit;
     height: 350px;
   }
   .zoom-details{

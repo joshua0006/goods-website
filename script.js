@@ -1,88 +1,74 @@
 const mainContainer = document.querySelector('main');
+const allProductButton = document.querySelector('.all-products');
+const vitaminsButton = document.querySelector('.vitamins');
+const perfumesButton = document.querySelector('.perfumes');
 
-const productList = [
-    {
-        name: 'Kirkland Signature Vitamin C 1000mg 500 tablets',
-        img: 'images/product-image/kirkland-vitaminc-1000mg.jpg',
-        stock: true,
-        id: 1
+renderProducts(productList);
 
-    },
-    {
-        name: 'Youtheory Collagen + biotin Enhanced formula 390 tablets',
-        img: 'images/product-image/collagen.jfif',
-        stock: false,
-        id: 2
-    },{
-        name: 'Kirkland Signature Vitamin C 1000mg 500 tablets',
-        img: 'images/product-image/kirkland-vitaminc-1000mg.jpg',
-        stock: true,
-        id: 1
-
-    },
-    {
-        name: 'Youtheory Collagen + biotin Enhanced formula 390 tablets',
-        img: 'images/product-image/collagen.jfif',
-        stock: false,
-        id: 2
-    },{
-        name: 'Youtheory Collagen + biotin Enhanced formula 390 tablets',
-        img: 'images/product-image/collagen.jfif',
-        stock: false,
-        id: 2
-    },{
-        name: 'Kirkland Signature Vitamin C 1000mg 500 tablets',
-        img: 'images/product-image/kirkland-vitaminc-1000mg.jpg',
-        stock: true,
-        id: 1
-
-    },
-    {
-        name: 'Youtheory Collagen + biotin Enhanced formula 390 tablets',
-        img: 'images/product-image/collagen.jfif',
-        stock: false,
-        id: 2
-    }
-];
-
-let html = '';
-
-productList.forEach((product) => {
-    html += `   <div class="product-container" data-product-name=${product.name} data-product-img=${product.img}>
-                    <img src="${product.img}" alt="product-image" height="350px" width="300px">
-                    <div class="product-details">
-                        <p> ${product.name}</p>
-                        <p>stock available: ${product.stock ? 'yes' : 'no'}</p>
-                    </div>
-                </div>`;
+allProductButton.addEventListener('click', () => {
+    renderProducts(productList);
 });
 
-mainContainer.innerHTML = html;
-const productContainer = document.querySelectorAll('.product-container');
+vitaminsButton.addEventListener('click', () => {
+    const filteredProducts = productList.filter(product => product.class === 'vitamins');
+    renderProducts(filteredProducts);
+});
 
-productContainer.forEach(product => {
-    product.addEventListener('click', () => {
-        console.log();
+perfumesButton.addEventListener('click', () => {
+    const filteredProducts = productList.filter(product => product.class === 'perfumes');
+    renderProducts(filteredProducts);
+});
+
+
+function buildHTML(product){
+    html += `   <div class="product-container" 
+                            data-product-name="${product.name}" 
+                            data-product-img="${product.img}" 
+                            data-product-subName="${product.subName}">
+                        <img src="${product.img}" alt="product-image" height="350px" width="300px">
+                        <div class="product-details">
+                            <p><strong> ${product.subName}</strong></p>
+                            <p> ${product.name}</p>    
+                        </div>
+                    </div>`;
+};
+function renderProducts(productArray) {
+    html = '';
+    productArray.forEach(product => {
+        buildHTML(product);
+    });
+    mainContainer.innerHTML = html;
+};
+
+mainContainer.addEventListener('click', event => {
+    const product = event.target.closest('.product-container');
+    if (product) {
         const floatingProduct = document.createElement('div');
         floatingProduct.classList.add('floating-product');
         floatingProduct.innerHTML = `
             <div class="zoom-details">
                 <img src="${product.dataset.productImg}" alt="product-image">
                 <div class="details">
+                    <p><strong>${product.dataset.productSubname}</strong></p>
                     <p>${product.dataset.productName}</p>
                 </div>
                 <p class="close-floating">x</p>
             </div>
         `;
-    
-    const closeFloating = floatingProduct.querySelector('.close-floating');
-    closeFloating.addEventListener('click', () => {
-        floatingProduct.remove();
-    });
-    
+
+        const closeFloating = floatingProduct.querySelector('.close-floating');
+        closeFloating.addEventListener('click', () => {
+            floatingProduct.remove();
+        });
+
         document.body.appendChild(floatingProduct);
+    }
+});
+
+function reattachProductListeners() {
+    const productContainer = document.querySelectorAll('.product-container');
+    productContainer.forEach(product => {
+        product.removeEventListener('click', productClickListener); // Remove existing listener if needed
+        product.addEventListener('click', productClickListener);
     });
-    
-})
-
-
+}
