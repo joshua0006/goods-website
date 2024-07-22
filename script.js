@@ -21,16 +21,17 @@ perfumesButton.addEventListener('click', () => {
 
 
 function buildHTML(product){
-    html += `   <div class="product-container" 
-                            data-product-name="${product.name}" 
-                            data-product-img="${product.img}" 
-                            data-product-subName="${product.subName}">
-                        <img src="${product.img}" alt="product-image" height="350px" width="300px">
-                        <div class="product-details">
-                            <p><strong> ${product.subName}</strong></p>
-                            <p> ${product.name}</p>    
-                        </div>
-                    </div>`;
+    html += `   <div class="product-container"
+                    data-product-shipsFrom="${product['Ships From']}"
+                    data-product-stock="${product.stock}" 
+                    data-product-brand="${product.Brand}">
+                    <img src="${product.img}" alt="product-image" height="350px" width="300px">
+                    <div class="product-details">
+                        <p><strong>${product.subName}</strong></p>
+                        <p>${product.name}</p>    
+                    </div>
+                </div>
+`;
 };
 function renderProducts(productArray) {
     html = '';
@@ -41,21 +42,26 @@ function renderProducts(productArray) {
 };
 
 mainContainer.addEventListener('click', event => {
+    console.log(productList);
     const product = event.target.closest('.product-container');
     if (product) {
+        const imgSrc = product.querySelector('img').src;
+        const productName = product.querySelector('.product-details p:nth-child(2)').textContent;
         const floatingProduct = document.createElement('div');
+        const isStock = product.dataset.productStock ? "available" : "not available";
         floatingProduct.classList.add('floating-product');
         floatingProduct.innerHTML = `
             <div class="zoom-details">
-                <img src="${product.dataset.productImg}" alt="product-image">
+                <img src="${imgSrc}" alt="product-image">
                 <div class="details">
-                    <p><strong>${product.dataset.productSubname}</strong></p>
-                    <p>${product.dataset.productName}</p>
+                    <p><strong>${productName}</strong></p>
+                    <p>Stock: ${isStock}</p>
+                    <p>Brand: ${product.dataset.productBrand}</p> 
                 </div>
                 <p class="close-floating">x</p>
             </div>
         `;
-
+   
         const closeFloating = floatingProduct.querySelector('.close-floating');
         closeFloating.addEventListener('click', () => {
             floatingProduct.remove();
@@ -65,10 +71,11 @@ mainContainer.addEventListener('click', event => {
     }
 });
 
+
 function reattachProductListeners() {
     const productContainer = document.querySelectorAll('.product-container');
     productContainer.forEach(product => {
-        product.removeEventListener('click', productClickListener); // Remove existing listener if needed
+        product.removeEventListener('click', productClickListener); 
         product.addEventListener('click', productClickListener);
     });
 }

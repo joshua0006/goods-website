@@ -1,8 +1,9 @@
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Roboto, Arial, sans-serif;
+  font-family: Quicksand, Arial, sans-serif;
 }
 :root{
   --black: #212A31;
@@ -106,6 +107,7 @@ main{
   top: -20px;
   width: 100%;
 }
+
 .zoom-details{
   position: relative;
   display: flex;
@@ -125,10 +127,17 @@ main{
   border-radius: 5px;
   margin-bottom: 20px;
 }
+.zoom-details p{
+  font-size: calc(0.5vw + 15px);
+}
+.zoom-details p:not(:first-child){
+  text-wrap: nowrap;
+  text-align: center;
+}
 .floating-product .details{
   color: var(--white);
   height: 300px;
-  width: 200px;
+  width: 90%;
   text-align: center;
 }
 .close-floating{
@@ -192,11 +201,11 @@ footer a:hover{
     height: 350px;
   }
   .zoom-details{
-    width: 30%;
-    padding-top: 30px;
+    width: calc(30% + 100px);
+    height: fit-content;
   }
   .zoom-details img{
-    height: 500px;
-    width: 300px;
+    height: calc(10vw + 120px);
+    width: calc(10vw + 120px);
   }
 }
